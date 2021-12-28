@@ -14,7 +14,7 @@ func MakeClassicView(myPomodoro *pomodoro.Pomodoro) *fyne.Container {
 	timer := canvas.NewText(formatDuration(myPomodoro.RemainingTime), nil)
 	timer.TextSize = 42
 	timerButton := widget.NewButton("", nil)
-	timerPanel := container.NewMax(timer, timerButton)
+	timerPanel := container.NewHBox(layout.NewSpacer(), container.NewMax(timer, timerButton), layout.NewSpacer())
 
 	startButton := widget.NewButtonWithIcon("", theme.MediaPlayIcon(), nil)
 	stopButton := widget.NewButtonWithIcon("", theme.MediaStopIcon(), nil)
@@ -50,11 +50,24 @@ func MakeClassicView(myPomodoro *pomodoro.Pomodoro) *fyne.Container {
 		startButton.Icon = theme.MediaPlayIcon()
 		startButton.Refresh()
 	}
+	onSettings := func() {
+		win := app.NewWindow("Settings")
+		win.SetIcon(AssetIconPng)
+		win.CenterOnScreen()
+
+		win.Resize(fyne.NewSize(200, 200))
+		content := widget.NewLabel("5 seconds later")
+
+		win.SetContent(content)
+		win.Show()
+		win.Close()
+	}
 
 	startButton.OnTapped = onPlay
 	timerButton.OnTapped = onPlay
 	stopButton.OnTapped = onStop
 	nextButton.OnTapped = onNext
+	settingsButton.OnTapped = onSettings
 
 	myPomodoro.OnTick = func() {
 		timer.Text = formatDuration(myPomodoro.RemainingTime)
