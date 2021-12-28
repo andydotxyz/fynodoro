@@ -19,9 +19,9 @@ func main() {
 	//})
 
 	myWin := myApp.NewWindow("Fynodoro")
-	myWin.SetIcon(resourceIconPng)
+	myWin.SetIcon(ui.AssetIconPng)
 	myWin.CenterOnScreen()
 	myWin.SetMaster()
-	myWin.SetContent(ui.MakeClassicView(myPomodoro))
+	myWin.SetContent(ui.MakeClassicView(myApp, myPomodoro))
 	myWin.ShowAndRun()
 }
