@@ -10,7 +10,7 @@ import (
 	"github.com/tomsquest/fynodoro/pomodoro"
 )
 
-func MakeClassicView(myPomodoro *pomodoro.Pomodoro) *fyne.Container {
+func MakeClassicView(app fyne.App, myPomodoro *pomodoro.Pomodoro) *fyne.Container {
 	timer := canvas.NewText(formatDuration(myPomodoro.RemainingTime), nil)
 	timer.TextSize = 42
 	timerButton := widget.NewButton("", nil)
@@ -19,7 +19,8 @@ func MakeClassicView(myPomodoro *pomodoro.Pomodoro) *fyne.Container {
 	startButton := widget.NewButtonWithIcon("", theme.MediaPlayIcon(), nil)
 	stopButton := widget.NewButtonWithIcon("", theme.MediaStopIcon(), nil)
 	nextButton := widget.NewButtonWithIcon("", theme.MediaSkipNextIcon(), nil)
-	buttons := container.NewHBox(layout.NewSpacer(), startButton, stopButton, nextButton, layout.NewSpacer())
+	settingsButton := widget.NewButtonWithIcon("", theme.SettingsIcon(), nil)
+	buttons := container.NewHBox(layout.NewSpacer(), startButton, stopButton, nextButton, settingsButton, layout.NewSpacer())
 
 	onPlay := func() {
 		if myPomodoro.Running {
